@@ -1,0 +1,97 @@
+
+<center><h1> Orders </h1></center>
+
+<div class="row" style="margin-bottom: 20px">
+    <strong>
+      <div class="col-sm-3">
+        Preview Picture
+      </div>
+      <div class="col-sm-3">
+        Product Name
+      </div>
+      <div class="col-sm-4">
+        Quantity
+      </div>
+      <div class="col-sm-2">
+        Product Price
+      </div>
+
+    </strong>
+</div>
+
+
+<% @user_cart.carts.each do |cart| %>
+   
+  <div class="row">
+
+    <div class="col-sm-3">
+      <%= image_tag cart.product.thumbnail, :class => "style_image" %>
+    </div>
+
+    <div class="col-sm-3">
+      <%= cart.product.name %>
+    </div>
+
+    <div class="col-sm-4">
+      <%= cart.quantity  %>
+    </div>
+
+  
+    <div class="col-sm-2 prices">
+      <%= cart.product.discount_price * cart.quantity %>
+    </div>
+    </div>           
+<% end %>
+
+
+    <div class="order">
+      Estimated Price: <span id="total_price"></span>
+    </div>
+
+  
+ <script type="text/javascript">
+    
+    $( document ).ready(function() {  
+      update_total_price();
+    });
+
+    function update_total_price() {
+      var total_price = 0;
+      $( ".prices" ).each(function() {
+      total_price = total_price + parseInt($( this ).text());
+    });
+      $("#total_price").html(total_price);
+    }
+</script>
+ 
+
+
+
+
+
+
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

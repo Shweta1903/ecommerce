@@ -1,0 +1,156 @@
+<center><h1>My Cart Items</h1></center>
+
+<div class="row" style="margin-bottom: 20px">
+		<strong>
+			<div class="col-sm-3">
+			  Preview Picture
+			</div>
+			<div class="col-sm-3">
+			  Product Name
+			</div>
+			<div class="col-sm-1">
+			  Quantity
+			</div>
+			<div class= "col-sm-1">
+			</div>
+			<div class="col-sm-2">
+			  Product Price
+			</div>
+			<div class="col-sm-2">
+
+			</div>
+		</strong>
+</div>
+
+
+<% @user_cart.carts.each do |cart| %>
+   
+	<div class="row" id="remove_<%= cart.id %>">
+
+		<div class="col-sm-3">
+		  <%= image_tag cart.product.thumbnail, :class => "style_image" %>
+		</div>
+
+		<div class="col-sm-3">
+		  <%= cart.product.name %>
+		</div>
+
+		<div id="quantity_<%= cart.id %>" class="col-sm-1">
+		  <%= cart.quantity  %>
+		</div>
+
+		<div class="col-sm-1">
+		  <a  style="color:#fff" onclick='change_quantity("<%= cart.id %>", "plus")'> <span class="glyphicon glyphicon-plus"> </span></a>
+		  
+      <% if cart.quantity <= 1 %>
+        <a style="color:#fff; display:none" id="cart-minus-<%= cart.id %>" onclick='change_quantity("<%= cart.id %>", "minus")'><span class="glyphicon glyphicon-minus"></span></a>
+      <% else %>
+        <a style="color:#fff" id="cart-minus-<%= cart.id %>" onclick='change_quantity("<%= cart.id %>", "minus")'><span class="glyphicon glyphicon-minus"></span></a>
+      <% end %>
+		</div>
+
+		<div  id="price_<%= cart.id %>" class="col-sm-2 prices">
+		  <%= cart.product.discount_price * cart.quantity %>
+		</div>
+      
+
+        <div class="col-sm-2">
+        <input type = "button" class="btn btn-danger btn-sm " value="Delete" onclick="remove_cart('<%= cart.id %>')"></input>
+          
+		</div>	
+	</div>
+
+<% end %>
+
+    <div class="order">
+      Estimated Price: <span id="total_price"></span>
+      
+      <%= link_to "<Continue Shoping", root_path, class: "btn btn-warning btn-sm btn3d"%>
+      <%= link_to "Place Order and Checkout", checkouts_path, class: "btn btn-success btn-sm btn3d"%>
+    </div>
+
+     
+
+ <script type="text/javascript">
+    
+    $( document ).ready(function() {  
+    	update_total_price();
+    });
+
+    function update_total_price() {
+    	var total_price = 0;
+    	$( ".prices" ).each(function() {
+		    total_price = total_price + parseInt($( this ).text());
+		  });
+    	$("#total_price").html(total_price);
+      update_total_cart_price(total_price);
+    }
+
+
+    function update_total_cart_price(total_price) {
+    
+      $.ajax({
+        url: "<%= update_total_price_path %>",
+            data: {
+                total_price: total_price
+            },
+            success: function(res) {
+
+            }
+      });
+    }
+
+
+    function change_quantity(cart_id, change) {
+        $.ajax( {
+            url: "<%= change_quantity_path %>",
+            data: {
+                cart_id: cart_id,
+                change: change      //quantity plus/minus
+            },
+            success: function(res) {
+               $("#quantity_" + cart_id).html(res.quantity);
+               $("#price_" + cart_id).html(res.price);
+               update_total_price();
+               
+               if (res.quantity <= 1) {
+                  $("#cart-minus-"+cart_id).hide();
+               } else {
+                  $("#cart-minus-"+cart_id).show();
+               }
+            }
+        });
+    }
+
+
+ 
+    function remove_cart(cart_id) {
+    	$.ajax( {
+    	  url: "<%= destroy_path %>",
+    	  data: {
+    	  	cart_id: cart_id
+    	},
+       	success: function(res){
+           $("#remove_" + cart_id).remove();
+           update_total_price();
+           current_value = $("#cart-count").text();   //update cart-count
+           new_count = parseInt(current_value) - 1;
+           $("#cart-count").html(new_count);
+    	}	
+    });
+    }
+
+    </script>
+
+
+ 
+
+
+
+
+
+
+
+          
+
+

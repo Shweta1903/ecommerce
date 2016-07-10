@@ -1,0 +1,4 @@
+
+$("#cart-count").html("<%= @user_cart.carts.count %>");
+$('.link_<%= @product.id %>').bind('click', false);
+$('.link_<%= @product.id %>').html('Already Added');

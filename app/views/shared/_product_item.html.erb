@@ -1,0 +1,20 @@
+<div class="col-sm-4 product-list-div">
+  <center>
+    <a href="<%= product_path(product.id) %>">
+      <div> <%= image_tag product.thumbnail, :class => "style_image" %> </div>
+      <div class="name-color"> <%= product.name %> </div>
+      <% if product.discount_price < product.price %>
+        <div class="inline">  Rs. <%= product.price %> </div>
+        <div class="dis-color"> Rs. <%= product.discount_price %></div>
+      <% else %>
+        <div class="dis-color">  Rs. <%= product.price %> </div>
+      <% end %>
+  </a> 
+  
+      <% if product.is_already_added(session[:user_cart_id]) %>
+        <input type="button" class="btn btn-sm btn-success" value="Already added" />
+      <% else %>
+        <%= link_to "Add To Cart", add_to_cart_path(product_id: product.id), class: "btn btn-lg btn-success btn-sm link_#{product.id}", method: 'get', remote: true %>
+      <% end %>
+  </center>
+</div>

@@ -1,0 +1,16 @@
+<% if @sale.present? %>
+  <center><h1><%= @sale.name %></h1></center>
+  <div class="row discount-products">
+  <% @sales_products.each do |product| %>
+     <%= render partial: "shared/product_item", locals: {product: product}%>
+  <% end %>
+  </div>
+<% end %>
+
+
+<center> <h1> All Products </h1></center>
+<div>
+<%= render partial: "shared/product_list" %>
+</div>
+
+

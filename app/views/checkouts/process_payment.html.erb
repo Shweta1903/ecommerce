@@ -1,0 +1,76 @@
+<div class="container"> 
+   <h3> Order was successfully created.</h3>	
+</div>
+
+<!-- <div class="container">
+    Total_price: <%= @user_cart.total_price %> 
+</div> -->
+
+<!-- <div class="container">
+   Contact_number: <%= @order.user.addresses.first.contact_number %>
+</div> -->
+
+
+
+
+<center><h1> Order Summary </h1></center>
+
+<div class="row" style="margin-bottom: 20px">
+		<strong>
+			<div class="col-sm-3">
+			  Preview Picture
+			</div>
+			<div class="col-sm-3">
+			  Product Name
+			</div>
+			<div class="col-sm-3">
+			  Quantity
+			</div>
+			<div class="col-sm-3">
+			  Product Price
+			</div>
+
+		</strong>
+</div>
+
+
+<% @user_cart.carts.each do |cart| %>
+   
+	<div class="row">
+
+		<div class="col-sm-3">
+		  <%= image_tag cart.product.thumbnail, :class => "style_image" %>
+		</div>
+
+		<div class="col-sm-3">
+		  <%= cart.product.name %>
+		</div>
+
+		<div class="col-sm-3">
+		  <%= cart.quantity  %>
+		</div>
+
+	
+		<div class="col-sm-3 prices">
+		  <%= cart.product.discount_price * cart.quantity %>
+		</div>
+    </div>           
+<% end %>
+
+
+    <div class="order">
+       <%= link_to "<Continue Shoping", root_path, class: 'btn btn-primary'%>
+    </div>
+
+  
+
+
+
+
+
+
+
+
+          
+
+

@@ -1,0 +1,105 @@
+<div class="">
+  <h3> Login ID:  <%= current_user.email%> </h3>
+
+</div>
+
+<div class="">
+  <h3> Delivery Addresses: </h3>
+</div>
+
+<div class="row">
+<% @addresses.each do |address| %>
+  <div class="border-box col-sm-3">
+  <div class="top-border">
+     <a href="<%= address_path(address.id)%>" data-method="delete">
+        <span class="glyphicon glyphicon-trash"></span>
+      </a>
+      <a href="<%= edit_address_path(address)%>">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </a>
+  </div>
+  <div class="">
+    <%= address.first_name%>
+  </div>
+
+  <div class="">
+    <%= address.last_name %>
+  </div>
+
+  <div class="">
+    <%= address.address1 %>
+  </div>
+
+  <div class="">
+    <%= address.address2 %>
+  </div>
+
+  <div class="">
+    <%= address.contact_number %>
+  </div>
+
+  <div class="">
+    <%= address.city %>
+  </div>
+    
+<%= button_to "Use", order_summary_path, params: {address_id: address.id}, :class => "btn btn-sm btn-success", :method => :post  %>
+
+
+</div>
+<% end %>
+</div>
+
+
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal"> New Address </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"> Enter a new Address</h4>
+        </div>
+        <div class="modal-body">
+          <%= form_for(@address) do |f| %>
+            
+            <div class="field">
+              <%= f.label :first_name %><br>
+              <%= f.text_field :first_name %>
+            </div>
+            <div class="field">
+              <%= f.label :last_name %><br>
+              <%= f.text_field :last_name %>
+            </div>
+            <div class="field">
+              <%= f.label :address1 %><br>
+              <%= f.text_field :address1 %>
+            </div>
+            <div class="field">
+              <%= f.label :address2 %><br>
+              <%= f.text_field :address2 %>
+            </div>
+            <div class="field">
+              <%= f.label :contact_number %><br>
+              <%= f.text_field :contact_number %>
+            </div>
+            <div class="field">
+              <%= f.label :city %><br>
+              <%= f.text_field :city %>
+            </div>
+
+            <div class="actions">
+              <%= f.submit %>
+            </div>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+</div>

@@ -1,0 +1,103 @@
+
+<div class="container">
+	<h3> Delivery Address </h3>
+	<%= @address.first_name %> <br>
+	<%= @address.last_name %> <br>
+	<%= @address.address1 %> <br>
+	<%= @address.contact_number %> <br>
+	<%= @address.city %> 
+</div>
+
+
+<center><h1> Order Summary </h1></center>
+
+<div class="row" style="margin-bottom: 20px">
+		<strong>
+			<div class="col-sm-3">
+			  Preview Picture
+			</div>
+			<div class="col-sm-3">
+			  Product Name
+			</div>
+			<div class="col-sm-4">
+			  Quantity
+			</div>
+			<div class="col-sm-2">
+			  Product Price
+			</div>
+
+		</strong>
+</div>
+
+
+<% @user_cart.carts.each do |cart| %>
+   
+	<div class="row">
+
+		<div class="col-sm-3">
+		  <%= image_tag cart.product.thumbnail, :class => "style_image" %>
+		</div>
+
+		<div class="col-sm-3">
+		  <%= cart.product.name %>
+		</div>
+
+		<div class="col-sm-4">
+		  <%= cart.quantity  %>
+		</div>
+
+	
+		<div class="col-sm-2 prices">
+		  <%= cart.product.discount_price * cart.quantity %>
+		</div>
+    </div>           
+<% end %>
+
+
+    <div class="order">
+      Estimated Price: <span id="total_price"></span>
+      <%= link_to "<Continue Shoping", root_path, class: 'btn btn-primary'%>
+      <%= link_to "Payment", payment_path , class: 'btn btn-primary'%>
+
+		<%= form_tag(:controller => "checkouts", :action => "process_payment") do %>  
+		  <input type="hidden" name="address_id" value="<%= @address.id %>">
+		  <script
+		    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+		    data-key="pk_test_GG5tcHJSEy736OV9uXwNuW9Y"
+		    data-amount="<%= @amount*100 %>"
+		    data-name="Shweta"
+		    data-description="Widget"
+		    data-image="/img/documentation/checkout/marketplace.png"
+		    data-zip-code="true"
+		    data-locale="auto">
+		  </script>
+		 <% end %>
+
+    </div>
+
+  
+ <script type="text/javascript">
+    
+    $( document ).ready(function() {  
+    	update_total_price();
+    });
+
+    function update_total_price() {
+    	var total_price = 0;
+    	$( ".prices" ).each(function() {
+		  total_price = total_price + parseInt($( this ).text());
+		});
+    	$("#total_price").html(total_price);
+    }
+</script>
+ 
+
+
+
+
+
+
+
+          
+
+
