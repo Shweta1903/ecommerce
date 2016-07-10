@@ -44,7 +44,6 @@
     
 <%= button_to "Use", order_summary_path, params: {address_id: address.id}, :class => "btn btn-sm btn-success", :method => :post  %>
 
-
 </div>
 <% end %>
 </div>
@@ -64,35 +63,40 @@
           <h4 class="modal-title"> Enter a new Address</h4>
         </div>
         <div class="modal-body">
-          <%= form_for(@address) do |f| %>
-            
+          <%= form_for(@address, :html=> {:onsubmit => "return checkform();"}) do |f| %>
             <div class="field">
               <%= f.label :first_name %><br>
               <%= f.text_field :first_name %>
+              <label id ="address_first_name_error"></label>
             </div>
             <div class="field">
               <%= f.label :last_name %><br>
               <%= f.text_field :last_name %>
+              <label id ="address_last_name_error"></label>
             </div>
             <div class="field">
               <%= f.label :address1 %><br>
               <%= f.text_field :address1 %>
+              <label id ="address_address1_error"></label>
             </div>
             <div class="field">
               <%= f.label :address2 %><br>
               <%= f.text_field :address2 %>
+              <label id ="address_address2_error"></label>
             </div>
             <div class="field">
               <%= f.label :contact_number %><br>
               <%= f.text_field :contact_number %>
+              <label id ="address_contact_number_error"></label>
             </div>
             <div class="field">
               <%= f.label :city %><br>
               <%= f.text_field :city %>
+              <label id ="address_city_error"></label>
             </div>
 
             <div class="actions">
-              <%= f.submit %>
+              <%= f.submit  "Save New Address"%>
             </div>
           <% end %>
         </div>
@@ -103,3 +107,41 @@
       
     </div>
 </div>
+
+<script type="text/javascript">
+  function checkform() {
+    var status_form = true;
+    
+    if (document.getElementById('address_first_name').value == "" || document.getElementById('address_first_name').value == null) {
+      status_form = false;
+      document.getElementById('address_first_name_error').innerHTML = "First Name can't be blank";
+    }
+
+    if (document.getElementById('address_last_name').value == "" || document.getElementById('address_last_name').value == null) {
+      status_form = false;
+      document.getElementById('address_last_name_error').innerHTML = "Last Name can't be blank";
+    }
+
+    if (document.getElementById('address_address1').value == "" || document.getElementById('address_address1').value == null) {
+      status_form = false;
+      document.getElementById('address_address1_error').innerHTML = "Address1 can't be blank";
+    }
+
+    if (document.getElementById('address_address2').value == "" || document.getElementById('address_address2').value == null) {
+      status_form = false;
+      document.getElementById('address_address2_error').innerHTML = "Address2 can't be blank";
+    }
+
+    if (document.getElementById('address_contact_number').value == "" || document.getElementById('address_contact_number').value == null) {
+      status_form = false;
+      document.getElementById('address_contact_number_error').innerHTML = "Contact number can't be blank";
+    }
+
+    if (document.getElementById('address_city').value == "" || document.getElementById('address_city').value == null) {
+      status_form = false;
+      document.getElementById('address_city_error').innerHTML = "City can't be blank";
+    }
+
+    return status_form;
+  }
+</script>

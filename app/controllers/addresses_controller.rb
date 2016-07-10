@@ -30,7 +30,7 @@ class AddressesController < ApplicationController
         format.html { redirect_to checkouts_path, notice: 'Address was successfully created.' }
         format.json { render :show, status: :created, location: @address }
       else
-        format.html { render :new }
+        format.html { redirect_to checkouts_path, notice: 'Address was not saved.' }
         format.json { render json: @address.errors, status: :unprocessable_entity }
       end
     end
