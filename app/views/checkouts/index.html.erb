@@ -1,6 +1,5 @@
 <div class="">
   <h3> Login ID:  <%= current_user.email%> </h3>
-
 </div>
 
 <div class="">
@@ -14,9 +13,9 @@
      <a href="<%= address_path(address.id)%>" data-method="delete">
         <span class="glyphicon glyphicon-trash"></span>
       </a>
-      <a href="<%= edit_address_path(address)%>">
+    <!--   <a href="<%= edit_address_path(address)%>">
         <span class="glyphicon glyphicon-pencil"></span>
-      </a>
+      </a> -->
   </div>
   <div class="">
     <%= address.first_name%>
@@ -107,6 +106,7 @@
       
     </div>
 </div>
+
 
 <script type="text/javascript">
   function checkform() {
