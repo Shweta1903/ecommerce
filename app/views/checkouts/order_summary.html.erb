@@ -57,7 +57,7 @@
     <div class="order">
       Estimated Price: <span id="total_price"></span>
       <%= link_to "<Continue Shoping", root_path, class: 'btn btn-primary'%>
-      <%= link_to "Payment", payment_path , class: 'btn btn-primary'%>
+      <%= button_to "Payment", payment_path, params: {address_id: @address.id}, :class => "btn btn-sm btn-success", :method => :get  %>
 
 		<%= form_tag(:controller => "checkouts", :action => "process_payment") do %>  
 		  <input type="hidden" name="address_id" value="<%= @address.id %>">

@@ -16,14 +16,20 @@ class CheckoutsController < ApplicationController
 		@amount = @user_cart.total_price
 	end
 
-
-
 	def payment
-	   @user_cart = UserCart.find(session[:user_cart_id])
-	   redirect_to @user_cart.paypal_url(process_payment_path)
+		#puts "=====================#{session[:user_cart_id].inspect}=================================="
+		@user_cart = UserCart.find(session[:user_cart_id])
+      	@order = Order.create(user_id: current_user.id, user_cart_id: session[:user_cart_id], total_amount: @user_cart.total_price, address_id: params[:address_id])
+      	#p "================================================================#{@order.inspect}"
+      	p @order.errors.messages
+      	redirect_to @user_cart.paypal_url	   
 	end
-	   
-	def process_payment
+
+    def receipt
+    	
+    end
+
+    def process_payment
 		@user_cart = UserCart.find(session[:user_cart_id])
       	@order = Order.create(user_id: current_user.id, user_cart_id: session[:user_cart_id] = nil, total_amount: @user_cart.total_price, address_id: params[:address_id])
      	#render json: {success: true, total_price: user_cart.total_price}

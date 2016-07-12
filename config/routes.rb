@@ -31,6 +31,8 @@ Rails.application.routes.draw do
 
     post "/orders/:id" => "orders#show"
     post "/hook" => "orders#hook"
+
+    get "/receipt" => "checkouts#receipt"
   
 
     
