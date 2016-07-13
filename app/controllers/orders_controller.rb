@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-   before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:hook]
 
     protect_from_forgery except: [:hook]
   
@@ -7,8 +7,8 @@ class OrdersController < ApplicationController
       params.permit! # Permit all Paypal input params
       status = params[:payment_status]
       if status == "Completed"
-        @order = Order.find params[:invoice]
-        @order.update_attributes(transaction_id: params[:txn_id], purchased_at: Time.now)
+        @order = Order.where(user_cart_id: params[:invoice]).first
+        @order.update_attributes(transaction_id: params[:txn_id], purchased_at: Time.now, status: params[:payment_status])
       end
     render nothing: true
     end

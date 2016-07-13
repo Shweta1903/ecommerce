@@ -1,1 +1,21 @@
-<h1>This is order receipt.</h1>
+<h3> Thanks you for your recent purchase at ror ecommerce .  Below you will see your confirmation details.</h3>
+<div class="container">
+	<!-- <div>
+	  <h5> Payment Status: <%= @order.status %> </h5>	
+	</div> -->
+
+	<div>
+		<h5> Total Amount: <%= @order.total_amount %></h5>
+	</div>
+
+	<div>
+		<h5> Transaction ID: <%= @order.transaction_id %> </h5>
+	</div>
+
+	<div>
+	   <%= link_to "<Continue Shoping", root_path, class: 'btn btn-primary'%>	
+	</div>
+</div>
+
+
+

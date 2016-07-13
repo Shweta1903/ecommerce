@@ -8,12 +8,12 @@ class UserCart < ActiveRecord::Base
 		:business => 'shwetasingh-merchant@gmail.com',
 	    :cmd => '_cart',
 		:upload => 1,
-		:return => "https://0a34287e.ngrok.io/receipt",
+		:return => "https://745a3e5c.ngrok.io/receipt",
 		:invoice => id,
-		:notify_url => "https://0a34287e.ngrok.io/hook"	
+		:notify_url => "https://745a3e5c.ngrok.io/hook"	
 	}
 	s_no = 1
-	self.carts.each do |cart|
+	carts.each do |cart|
 		values["amount_#{s_no}"] = cart.product.discount_price
 		values["item_name_#{s_no}"] = cart.product.name
 		values["item_number_#{s_no}"] = cart.product.id

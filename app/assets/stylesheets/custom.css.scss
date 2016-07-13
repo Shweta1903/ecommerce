@@ -308,3 +308,36 @@ stripe-button{
 
 
 
+
+/* order summary page */
+
+.height {
+    min-height: 200px;
+    }
+
+.panel-body {
+    padding: 25px;
+
+}
+
+.panel-heading {
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 10px 15px;
+}
+
+.col-lg-3 {
+    width: 20%;
+}
+
+.pull-left {
+    float: left;
+}
+.pull-left {
+    float: left !important;
+}
+col-xs-12 {
+    width: 100%;
+}
+

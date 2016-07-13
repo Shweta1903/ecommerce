@@ -1,12 +1,17 @@
-
-<div class="container">
-	<h3> Delivery Address </h3>
-	<%= @address.first_name %> <br>
-	<%= @address.last_name %> <br>
-	<%= @address.address1 %> <br>
-	<%= @address.contact_number %> <br>
-	<%= @address.city %> 
-</div>
+  <div class="row">
+                <div class="col-xs-12 col-md-3 col-lg-3 pull-left">
+                    <div class="panel panel-default height">
+                        <div class="panel-heading"> Delivery Address </div>
+                        <div class="panel-body">
+						    <%= @address.first_name %> <br>
+							<%= @address.last_name %> <br>
+							<%= @address.address1 %> <br>
+							<%= @address.contact_number %> <br>
+							<%= @address.city %> 
+                        </div>
+                    </div>
+                </div>
+  </div>
 
 
 <center><h1> Order Summary </h1></center>
@@ -58,21 +63,6 @@
       Estimated Price: <span id="total_price"></span>
       <%= link_to "<Continue Shoping", root_path, class: 'btn btn-primary'%>
       <%= button_to "Payment", payment_path, params: {address_id: @address.id}, :class => "btn btn-sm btn-success", :method => :get  %>
-
-		<%= form_tag(:controller => "checkouts", :action => "process_payment") do %>  
-		  <input type="hidden" name="address_id" value="<%= @address.id %>">
-		  <script
-		    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-		    data-key="pk_test_GG5tcHJSEy736OV9uXwNuW9Y"
-		    data-amount="<%= @amount*100 %>"
-		    data-name="Shweta"
-		    data-description="Widget"
-		    data-image="/img/documentation/checkout/marketplace.png"
-		    data-zip-code="true"
-		    data-locale="auto">
-		  </script>
-		 <% end %>
-
     </div>
 
   
@@ -89,15 +79,4 @@
 		});
     	$("#total_price").html(total_price);
     }
-</script>
- 
-
-
-
-
-
-
-
-          
-
-
+</script
