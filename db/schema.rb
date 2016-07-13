@@ -48,15 +48,6 @@ ActiveRecord::Schema.define(version: 20160713071448) do
     t.string   "thumbnail"
   end
 
-  create_table "images", force: :cascade do |t|
-    t.integer  "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "thumbnail"
-  end
-
-  add_index "images", ["product_id"], name: "index_images_on_product_id", using: :btree
-
   create_table "offers", force: :cascade do |t|
     t.integer  "sale_id"
     t.integer  "product_id"

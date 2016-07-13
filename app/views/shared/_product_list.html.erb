@@ -1,3 +1,5 @@
   <% @products.each do |product| %>
-    <%= render partial: "shared/product_item", locals: {product: product}%>
+    <div class="col-sm-4">
+    	<%= render partial: "shared/product_item", locals: {product: product}%>
+  	</div>
   <% end %>

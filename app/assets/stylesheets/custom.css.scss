@@ -337,7 +337,25 @@ stripe-button{
 .pull-left {
     float: left !important;
 }
-col-xs-12 {
+.col-xs-12 {
     width: 100%;
 }
 
+.owl-carousel {
+  margin: 0 auto;
+  width: 75%;
+}
+
+.owl-next {
+  left: 107%;
+  top: 23%;
+  font-size: 50px;
+  position: absolute;
+}
+
+.owl-prev {
+  left: -7%;
+  top: 23%;
+  position: absolute;
+  font-size:50px;
+} 

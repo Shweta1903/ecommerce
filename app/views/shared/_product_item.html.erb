@@ -1,4 +1,4 @@
-<div class="col-sm-4 product-list-div">
+<div class="product-list-div">
   <center>
     <a href="<%= product_path(product.id) %>">
       <div> <%= image_tag product.thumbnail, :class => "style_image" %> </div>
@@ -9,7 +9,7 @@
       <% else %>
         <div class="dis-color">  Rs. <%= product.price %> </div>
       <% end %>
-  </a> 
+    </a> 
   
       <% if product.is_already_added(session[:user_cart_id]) %>
         <input type="button" class="btn btn-sm btn-success" value="Already added" />

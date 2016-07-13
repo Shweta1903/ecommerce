@@ -13,8 +13,6 @@
   has_many :order_products
   has_many :orders, through: :order_products
 
-  has_many :images
-
    validates :name, :description, :thumbnail, :quantity, :price, :category_id,   :presence => true
 
   def discount_price
