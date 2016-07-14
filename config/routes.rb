@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     resources :checkouts
     resources :orders,        only: [:index, :show]
 
-    post "order_summary" => "checkouts#order_summary"
+    match "order_summary" => "checkouts#order_summary", via: [:get, :post]
     get "payment" => "checkouts#payment"
     post "process_payment" => "checkouts#process_payment"
 

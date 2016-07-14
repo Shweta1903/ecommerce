@@ -3,11 +3,14 @@
                     <div class="panel panel-default height">
                         <div class="panel-heading"> Delivery Address </div>
                         <div class="panel-body">
-						    <%= @address.first_name %> <br>
-							<%= @address.last_name %> <br>
-							<%= @address.address1 %> <br>
-							<%= @address.contact_number %> <br>
-							<%= @address.city %> 
+						    <%= @order.address.first_name %> <br>
+							<%= @order.address.last_name %> <br>
+							<%= @order.address.address1 %> <br>
+							<%= @order.address.contact_number %> <br>
+							<%= @order.address.city %>
+							<div>
+							<%= link_to "Change Address", checkouts_path, class: 'btn btn-primary'%>
+							</div> 
                         </div>
                     </div>
                 </div>
@@ -59,10 +62,16 @@
 <% end %>
 
 
-    <div class="order">
+    <div class="order row">
+      <div class="col-sm-9">
       Estimated Price: <span id="total_price"></span>
       <%= link_to "<Continue Shoping", root_path, class: 'btn btn-primary'%>
-      <%= button_to "Payment", payment_path, params: {address_id: @address.id}, :class => "btn btn-sm btn-success", :method => :get  %>
+      </div>
+      <div class="col-sm-3">
+      	<%= button_to "Payment", payment_path, :class => "btn btn-success", :style=> "float: right; margin-left: 10px; margin-right: 10px;", :method => :get  %>
+      </div>
+      
+      
     </div>
 
   

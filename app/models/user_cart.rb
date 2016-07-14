@@ -1,6 +1,6 @@
 class UserCart < ActiveRecord::Base
   belongs_to :user
-  has_many :carts
+  has_many :carts, dependent: :destroy
 
 
   def paypal_url 

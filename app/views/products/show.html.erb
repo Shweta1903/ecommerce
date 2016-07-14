@@ -1,38 +1,21 @@
-<!-- <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
-
-<p>
-  <strong>Thumbnail:</strong>
-  <%= image_tag @product.thumbnail %>
-</p> -->
-<!--%= link_to "Add To Cart", add_to_cart_path(product_id: @product.id), class: 'btn btn-lg btn-success btn-sm', method: 'get' %!-->
-
 <div class="container-fluid">
     <div class="content-wrapper">	
 		<div class="item-container">	
 			<div class="container">	
 				<div class="col-md-12">
-					
-
                     <div>
 					   <%= image_tag @product.thumbnail, :class => "style_image" %>
 		            </div>
-
-
                   <div class="col-md-7">
 					<div class="product-title">  <%= @product.name %> </div>
 					<div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
 					<hr>
-					<div class="product-price"> Rs.<%= @product.price%> </div>
+					  <% if @product.discount_price < @product.price %>
+				        <div class="inline">  Rs. <%= @product.price %> </div>
+				        <div class="product-price"> Rs. <%= @product.discount_price %></div>
+				      <% else %>
+				        <div class="product-price">  Rs. <%= @product.price %> </div>
+				      <% end %>
 					<div class="product-stock">In Stock</div>
 					<hr>
 					<div class="btn-group cart">

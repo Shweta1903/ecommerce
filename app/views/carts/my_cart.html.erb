@@ -1,5 +1,7 @@
 <center><h1>My Cart Items</h1></center>
 
+<% if @user_cart.carts.count > 0 %>
+
 <div class="row" style="margin-bottom: 20px">
 		<strong>
 			<div class="col-sm-3">
@@ -129,20 +131,28 @@
     	  url: "<%= destroy_path %>",
     	  data: {
     	  	cart_id: cart_id
-    	},
+    	  },
        	success: function(res){
            $("#remove_" + cart_id).remove();
            update_total_price();
            current_value = $("#cart-count").text();   //update cart-count
            new_count = parseInt(current_value) - 1;
            $("#cart-count").html(new_count);
+           if (new_count < 1) {
+             window.location.reload();
+           } 
     	}	
     });
     }
 
     </script>
 
-
+<% else %>
+  <center>
+    <h2>You don't have any item in your cart. Add Items to the cart.</h2>    
+    <%= link_to "<Continue Shoping", root_path, class: "btn btn-warning btn3d btn-lg"%>
+  </center>
+<% end %>
  
 
 

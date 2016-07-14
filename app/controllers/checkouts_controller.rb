@@ -1,5 +1,6 @@
 class CheckoutsController < ApplicationController
 	before_action :authenticate_user!, only:[:index, :payment, :order_summary]
+	before_action :check_cart_items, only: [:index]
 
 	def index
 	  @addresses = current_user.addresses
@@ -12,24 +13,35 @@ class CheckoutsController < ApplicationController
 
 	def order_summary
 		@user_cart = UserCart.find(session[:user_cart_id])
-		@address = Address.find(params[:address_id])
-		@amount = @user_cart.total_price
+		if request.method == "POST"
+	      	## we are using first_or_intialize because if someone needs to change the address for the current user_cart then duplicate order entry will not get created
+	      	@order = Order.where(user_id: current_user.id, user_cart_id: session[:user_cart_id], total_amount: @user_cart.total_price).first_or_initialize
+	      	@order.address_id = params[:address_id]
+	      	@order.save
+	    else
+	    	@order = Order.where(user_cart_id: session[:user_cart_id]).first
+	    	if !@order.present? || !@order.address_id.present?
+	    		redirect_to my_cart_path
+	    	end
+	    end
 	end
 
 	def payment
-		#puts "=====================#{session[:user_cart_id].inspect}=================================="
 		@user_cart = UserCart.find(session[:user_cart_id])
-      	@order = Order.create(user_id: current_user.id, user_cart_id: session[:user_cart_id], total_amount: @user_cart.total_price, address_id: params[:address_id])
-      	#p "================================================================#{@order.inspect}"
-      	#p @order.errors.messages
       	redirect_to @user_cart.paypal_url	   
 	end
 
     def receipt
-      #p "-----------------------#{session[:user_cart_id]}================"
       @order = Order.where(user_cart_id: session[:user_cart_id]).first
-     # puts"----------#{@order.inspect}"
       session[:user_cart_id] = nil
+    end
+
+    private
+    def check_cart_items
+      user_cart = UserCart.find(session[:user_cart_id])
+      if user_cart.carts.count < 1
+      	redirect_to my_cart_path
+      end
     end
 
   #   def process_payment
